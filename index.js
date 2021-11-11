@@ -119,16 +119,15 @@ http.createServer((req, res) => {
     almacenados en el servidor (gastos.json).
      */
     if (req.url.startsWith("/gasto") && req.method == "PUT") {
-        const { id } = url.parse(req.url, true).query;
-        // console.log(id);
         let body;
+        const { id } = url.parse(req.url, true).query;
         req.on("data", (payload) => {
-            body = JSON.parse(payload);
+        body = JSON.parse(payload);
         });
-        // console.log(payload);
+        console.log(id);
         req.on("end", () => {
             gastosJSON.gastos = gastos.map((b) => {
-                if (b.id == body.id) {
+                if (b.id == id) {
                     return body;
                 }
                 return b;
